@@ -43,6 +43,34 @@
 
 		text = decryptedText;
 	};
+
+	const bruteforce = () => {
+		if (text.length <= 0) return;
+		const originalText = text;
+		let hugeText = 'original text: ' + originalText + '\n';
+
+		for (let i = 1; i < plaintext.length; i++) {
+			let bruteForceText = '';
+			const cipherText = plaintext.slice(i) + plaintext.slice(0, i);
+			hugeText += `shift ${i} => `;
+			for (const char of originalText) {
+				if (char.match(/[\s.,;:!?"'\-]/gi)) {
+					bruteForceText += char;
+					continue;
+				}
+				const isUppercase = /[A-Z]/g;
+				if (isUppercase.test(char)) {
+					bruteForceText += plaintext.charAt(cipherText.indexOf(char.toLowerCase())).toUpperCase();
+					continue;
+				}
+				bruteForceText += plaintext.charAt(cipherText.indexOf(char));
+			}
+
+			hugeText += bruteForceText + '\n';
+		}
+
+		text = hugeText;
+	};
 </script>
 
 <section class="min-h-96 max-w-6xl w-full bg-gray-700 p-4 rounded-md">
@@ -132,12 +160,21 @@
 			</div>
 		</div>
 		<div class="flex justify-end">
-			<button
-				on:click={decrypt ? decryptText : encryptText}
-				type="button"
-				class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-				>{bruteForce && decrypt ? 'Bruteforce' : decrypt ? 'Decrypt' : 'Encrypt'} text</button
-			>
+			{#if bruteForce && decrypt}
+				<button
+					on:click={bruteforce}
+					type="button"
+					class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+					>Bruteforce text</button
+				>
+			{:else}
+				<button
+					on:click={decrypt ? decryptText : encryptText}
+					type="button"
+					class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+					>{bruteForce && decrypt ? 'Bruteforce' : decrypt ? 'Decrypt' : 'Encrypt'} text</button
+				>
+			{/if}
 		</div>
 	</div>
 </section>
