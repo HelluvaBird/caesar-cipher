@@ -2,6 +2,7 @@
 	let action: (() => void) | null = null;
 	let shift = 0;
 	let text = '';
+	let buttonText = '-';
 	const plaintext = 'abcdefghijklmnopqrstuvwxyz';
 	$: cipher = plaintext.slice(shift) + plaintext.slice(0, shift);
 
@@ -99,7 +100,10 @@
 							name="cipher-action"
 							type="radio"
 							class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-							on:change={() => (action = encryptText)}
+							on:change={() => {
+								action = encryptText;
+								buttonText = 'Encrypt';
+							}}
 						/>
 						<label for="encrypt" class="ml-3 block text-sm font-medium">Encrypt</label>
 					</div>
@@ -109,7 +113,10 @@
 							name="cipher-action"
 							type="radio"
 							class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-							on:change={() => (action = decryptText)}
+							on:change={() => {
+								action = decryptText;
+								buttonText = 'Decrypt';
+							}}
 						/>
 						<label for="decrypt" class="ml-3 block text-sm font-medium">Decrypt</label>
 					</div>
@@ -119,7 +126,10 @@
 							name="cipher-action"
 							type="radio"
 							class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-							on:change={() => (action = bruteforce)}
+							on:change={() => {
+								action = bruteforce;
+								buttonText = 'Bruteforce';
+							}}
 						/>
 						<label for="bruteforce" class="ml-3 block text-sm font-medium"> Bruteforce </label>
 					</div>
@@ -162,9 +172,10 @@
 			<div class="mt-4 flex justify-end">
 				<button
 					on:click={action}
+					disabled={!action}
 					type="button"
-					class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-					>text</button
+					class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-400 disabled:cursor-not-allowed"
+					>{buttonText}</button
 				>
 			</div>
 		</div>
