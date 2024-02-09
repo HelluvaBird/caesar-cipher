@@ -77,7 +77,13 @@
 		<div class="md:col-span-1">
 			<div class="">
 				<h1 class="text-4xl">The Caesar Cipher</h1>
-				<p class="mt-1 text-sm text-gray-400">some info about the caesar cipher here.</p>
+				<p class="hidden md:block mt-1 text-sm text-gray-400">
+					The Caesar cipher is a single-alphabet substitution cipher. Named after Julius Caesar, the
+					roman general and statesman, who used it to encrypt his private correspondence. This
+					cipher is one of the simplest and most widely used encryption techniques. By todays
+					standards the Caesar cipher is considered very weak and easily broken, but can still be
+					found today in children's toys and obscuring text on Usenet.
+				</p>
 			</div>
 		</div>
 		<div class="mt-5 md:mt-0 md:col-span-2">
@@ -93,7 +99,7 @@
 							name="cipher-action"
 							type="radio"
 							class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-							on:change={(event) => (action = encryptText)}
+							on:change={() => (action = encryptText)}
 						/>
 						<label for="encrypt" class="ml-3 block text-sm font-medium">Encrypt</label>
 					</div>
@@ -103,7 +109,7 @@
 							name="cipher-action"
 							type="radio"
 							class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-							on:change={(event) => (action = decryptText)}
+							on:change={() => (action = decryptText)}
 						/>
 						<label for="decrypt" class="ml-3 block text-sm font-medium">Decrypt</label>
 					</div>
@@ -113,7 +119,7 @@
 							name="cipher-action"
 							type="radio"
 							class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-							on:change={(event) => (action = bruteforce)}
+							on:change={() => (action = bruteforce)}
 						/>
 						<label for="bruteforce" class="ml-3 block text-sm font-medium"> Bruteforce </label>
 					</div>
